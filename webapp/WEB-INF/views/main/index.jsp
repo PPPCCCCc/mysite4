@@ -12,41 +12,12 @@
 </head>
 
 <body>
-	<div id="wrap">
+<div id="wrap">
+	 		<jsp:include page="/WEB-INF/views/inclueds/header.jsp"></jsp:include>
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
-
-			<c:if test = "${empty sessionScope.authUser }"> 
-			<!-- 로그인 실패, 로그인전 -->
-			<ul>
-				<li><a href="/mysite4.1/loginForm" class="btn_s">로그인</a></li>
-				<li><a href="/mysite4.1/joinForm" class="btn_s">회원가입</a></li>
-			</ul>
-			</c:if>
-			
-			<c:if test = "${!empty sessionScope.authUser }">
-			<!-- 로그인 성공 -->
-			<ul>
-				<li>${authUser.getName()}님 안녕하세요^^</li>
-				<li><a href="/mysite4.1/logout" class="btn_s">로그아웃</a></li>
-				<li><a href="/mysite4.1/modifyForm" class="btn_s">회원정보수정</a></li>
-			</ul>
-			</c:if>
-
-		</div>
 		<!-- //header -->
 
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="addList">방명록</a></li>
-			</ul>
-		</div>
+		<jsp:include page="/WEB-INF/views/inclueds/nav.jsp"></jsp:include>
 		<!-- //nav -->
 
 
@@ -85,9 +56,8 @@
 		<!-- //container -->
 
 
-		<div id="footer">Copyright ⓒ 2022 박찬희. All right reserved</div>
+		<jsp:include page="/WEB-INF/views/inclueds/footer.jsp"></jsp:include>
 		<!-- //footer -->
-
 	</div>
 	<!-- //wrap -->
 
