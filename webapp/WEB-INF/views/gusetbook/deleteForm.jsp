@@ -5,55 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/gusetbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
-
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->
-			<ul>
-				<li><a href="loginForm" class="btn_s">로그인</a></li>
-				<li><a href="joinForm"class="btn_s">회원가입</a></li>
-			</ul>
-
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/header.jsp"></c:import>
 		<!-- //header -->
 
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/nav.jsp"></c:import>
 		<!-- //nav -->
 
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>방명록</h2>
-				<ul>
-					<li>일반방명록</li>
-					<li>ajax방명록</li>
-				</ul>
-			</div>
+		<c:import url="/WEB-INF/views/inclueds/aside.jsp"></c:import>
 			<!-- //aside -->
-
-			<div id="content">
 
 				<div id="content-head">
 					<h3>일반방명록</h3>
@@ -69,7 +36,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite4/guestbook/delete" method="post">
+					<form action="${pageContext.request.contextPath}/guestbook/delete" method="post">
 					<input type='hidden' name="action" value="delete">
 						<table id="guestDelete">
 							<colgroup>
@@ -87,7 +54,7 @@
 									<button type="submit">삭제</button>
 								</td>
 								<td>
-									<a href="main">[메인으로 돌아가기]</a>
+									<a href="${pageContext.request.contextPath}/guestbook/addlist">[메인으로 돌아가기]</a>
 								</td>
 							</tr>
 						</table>
@@ -102,7 +69,7 @@
 		</div>
 		<!-- //container  -->
 
-		<div id="footer">Copyright ⓒ 2020 황일영. All right reserved</div>
+		<jsp:include page="/WEB-INF/views/inclueds/footer.jsp"></jsp:include>
 		<!-- //footer -->
 
 	</div>

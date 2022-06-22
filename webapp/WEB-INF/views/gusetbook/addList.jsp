@@ -5,53 +5,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/gusetbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
-
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->
-			<ul>
-				<li><a href="loginForm" class="btn_s">로그인</a></li>
-				<li><a href="joinForm" class="btn_s">회원가입</a></li>
-			</ul>
-
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/header.jsp"></c:import>
 		<!-- //header -->
 
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/nav.jsp"></c:import>
 		<!-- //nav -->
 
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>방명록</h2>
-				<ul>
-					<li>일반방명록</li>
-					<li>ajax방명록</li>
-				</ul>
-			</div>
+		<c:import url="/WEB-INF/views/inclueds/aside.jsp"></c:import>
 			<!-- //aside -->
 
 			<div id="content">
@@ -69,7 +37,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite4/add" method="get">
+					<form action="${pageContext.request.contextPath }/guestbook/write" method="post">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -79,59 +47,44 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th><label class="form-text" for="input-uname">이름</label>
-									</td>
-									<td>
-										<input id="input-uname" type="text" name="name">
-									</td>
-									<th><label class="form-text" for="input-pass">패스워드</label>
-									</td>
-									<td>
-										<input id="input-pass" type="password" name="pass">
-									</td>
+									<th><label class="form-text" for="input-uname">이름</label></th>
+									<td><input id="input-uname" type="text" name="name"></td>
+									<th><label class="form-text" for="input-pass">패스워드</label></th>
+									<td><input id="input-pass"type="password" name="password"></td>
 								</tr>
 								<tr>
-									<td colspan="4">
-										<textarea name="content" cols="72" rows="5"></textarea>
-									</td>
+									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 								</tr>
 								<tr class="button-area">
-									<td colspan="4" class="text-center">
-										<button type="submit">등록</button>
-									</td>
+									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
 								</tr>
 							</tbody>
-
+							
 						</table>
 						<!-- //guestWrite -->
-						<input type="hidden" name="action" value="add">
-
-					</form>
-					<c:forEach items="${guestbookList}" var="gBookVo">
-						<table class="guestRead">
-							<colgroup>
-								<col style="width: 10%;">
-								<col style="width: 40%;">
-								<col style="width: 40%;">
-								<col style="width: 10%;">
-							</colgroup>
-							<tr>
-								<td>${gBookvo.no }</td>
-								<td>${gBookvo.name }</td>
-								<td>${gBookvo.regDate }</td>
-								<td>
-									<a href="/mysite4/guestbook?action=deleteForm&no=${gBookVo.no }">[삭제]</a>
-								</td>
-							</tr>
-							<tr>
-								<td colspan=4 class="text-left">${gBookVo.content }></td>
-							</tr>
-						</table>
-					</c:forEach>
+						
+					</form>	
+				<c:forEach items = "${guestList}" var = "guestList">
+					<table class="guestRead">
+						<colgroup>
+							<col style="width: 10%;">
+							<col style="width: 40%;">
+							<col style="width: 40%;">
+							<col style="width: 10%;">
+						</colgroup>
+						<tr>
+							<td>${guestList.no }</td>
+							<td>${guestList.name }</td>
+							<td>${guestList.regDate }</td>
+							<td><a href="${pageContext.request.contextPath }/guestbook/deleteform?no=${guestList.no}">[삭제]</a></td>
+						</tr>
+						<tr>
+							<td colspan=4 class="text-left">${guestList.content }</td>
+						</tr>
+					</table>
 					<!-- //guestRead -->
-
-					<!-- //guestRead -->
-
+				</c:forEach>
+					
 				</div>
 				<!-- //guestbook -->
 
@@ -140,7 +93,7 @@
 		</div>
 		<!-- //container  -->
 
-		<div id="footer">Copyright ⓒ 2020 황일영. All right reserved</div>
+	<jsp:include page="/WEB-INF/views/inclueds/footer.jsp"></jsp:include>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->

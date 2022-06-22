@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -13,47 +14,15 @@
 <body>
 	<div id="wrap">
 
-		<div id="header" class="clearfix">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
 
-			<!-- 
-			<ul>
-				<li>황일영 님 안녕하세요^^</li>
-				<li><a href="" class="btn_s">로그아웃</a></li>
-				<li><a href="" class="btn_s">회원정보수정</a></li>
-			</ul>
-			-->
-			<ul>
-				<li><a href="" class="btn_s">로그인</a></li>
-				<li><a href="" class="btn_s">회원가입</a></li>
-			</ul>
-
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/header.jsp"></c:import>
 		<!-- //header -->
 
-		<div id="nav">
-			<ul class="clearfix">
-				<li><a href="">입사지원서</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">방명록</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/inclueds/nav.jsp"></c:import>
 		<!-- //nav -->
 
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="">일반게시판</a></li>
-					<li><a href="">댓글게시판</a></li>
-				</ul>
-			</div>
+		<c:import url="/WEB-INF/views/inclueds/aside.jsp"></c:import>
 			<!-- //aside -->
-
-			<div id="content">
 
 				<div id="content-head">
 					<h3>게시판</h3>
@@ -70,9 +39,8 @@
 
 				<div id="board">
 					<div id="list">
-						<form action="" method="">
+						<form action="${ pageContext.request.contextPath }/board/list" method="get">
 							<div class="form-group text-right">
-								<input type="text">
 								<button type="submit" id=btn_search>검색</button>
 							</div>
 						</form>
@@ -88,66 +56,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>123</td>
-									<td class="text-left">
-										<a href="#">게시판 게시글입니다.</a>
-									</td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td>
-										<a href="">[삭제]</a>
-									</td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left">
-										<a href="#">게시판 게시글입니다.</a>
-									</td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td>
-										<a href="">[삭제]</a>
-									</td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left">
-										<a href="#">게시판 게시글입니다.</a>
-									</td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td>
-										<a href="">[삭제]</a>
-									</td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left">
-										<a href="#">게시판 게시글입니다.</a>
-									</td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td>
-										<a href="">[삭제]</a>
-									</td>
-								</tr>
-								<tr class="last">
-									<td>123</td>
-									<td class="text-left">
-										<a href="#">게시판 게시글입니다.</a>
-									</td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td>
-										<a href="">[삭제]</a>
-									</td>
-								</tr>
+								<c:forEach items="${ boardList }" var="vo">
+									<tr>
+										<td>${ vo.no }</td>
+										<td class="text-left"><a href="${ pageContext.request.contextPath }/board/read?no=${ vo.no }">${ vo.title }</a></td>
+										<td>${ vo.name }</td>
+										<td>${ vo.hit }</td>
+										<td>${ vo.regDate }</td>
+										<c:if test="${ authUser.no == vo.userNo }">
+											<td><a href="${ pageContext.request.contextPath }/board/delete?no=${ vo.no }">[삭제]</a></td>
+										</c:if>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 
@@ -170,7 +90,7 @@
 
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
+						<a id="btn_write" href="${ pageContext.request.contextPath }/board/writeForm">글쓰기</a>
 
 					</div>
 					<!-- //list -->
@@ -179,13 +99,12 @@
 			</div>
 			<!-- //content  -->
 
-		</div>
 		<!-- //container  -->
 
 
-		<div id="footer">Copyright ⓒ 2020 황일영. All right reserved</div>
+		<jsp:include page="/WEB-INF/views/inclueds/footer.jsp"></jsp:include>
 		<!-- //footer -->
-	</div>
+	
 	<!-- //wrap -->
 
 </body>

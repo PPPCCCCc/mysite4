@@ -14,30 +14,7 @@ public class BoardVo {
 	// 생성자
 	public BoardVo() {
 	}
-
-	public BoardVo(int no, String title, String content) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.content = content;
-	}
-
-	public BoardVo(String title, String content, int userNo) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.userNo = userNo;
-	}
-
-	public BoardVo(int no, String title, int hit, String regDate, int userNo, String name) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.hit = hit;
-		this.regDate = regDate;
-		this.userNo = userNo;
-		this.name = name;
-	}
+	
 
 	public BoardVo(int no, String title, String content, int hit, String regDate, int userNo, String name) {
 		this.no = no;
@@ -49,7 +26,6 @@ public class BoardVo {
 		this.name = name;
 	}
 
-	// 메소드
 
 	public int getNo() {
 		return no;
@@ -107,11 +83,12 @@ public class BoardVo {
 		this.name = name;
 	}
 
-	// 메소드(일반)
 	@Override
 	public String toString() {
-		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", regDate="
-				+ regDate + ", userNo=" + userNo + ", name=" + name + "]";
+		return "BoardVo [no=" + no + ", title=" + title + ", content=" + content + ", hit=" + hit + ", regDate=" + regDate + ", userNo=" + userNo
+				+ ", name=" + name + "]";
 	}
 
+
 }
+	
