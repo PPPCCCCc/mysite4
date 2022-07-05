@@ -7,38 +7,35 @@ public class GuestBookVo {
 	private String name;
 	private String password;
 	private String content;
-	private String regdate;
+	private String regDate;
 
 	// 생성자
 	public GuestBookVo() {
 	}
 
 	public GuestBookVo(int no) {
-		super();
 		this.no = no;
 	}
 
 	public GuestBookVo(String name, String password, String content) {
-		super();
 		this.name = name;
 		this.password = password;
 		this.content = content;
 	}
 
-	public GuestBookVo(String name, String password, String content, String regdate) {
-		super();
+	public GuestBookVo(String name, String password, String content, String regDate) {
 		this.name = name;
 		this.password = password;
 		this.content = content;
-		this.regdate = regdate;
+		this.regDate = regDate;
 	}
 
-	public GuestBookVo(int no, String name, String password, String content, String regdate) {
+	public GuestBookVo(int no, String name, String password, String content, String regDate) {
 		this.no = no;
 		this.name = name;
 		this.password = password;
 		this.content = content;
-		this.regdate = regdate;
+		this.regDate = regDate;
 	}
 
 	// 메소드(게터세터)
@@ -74,18 +71,18 @@ public class GuestBookVo {
 		this.content = content;
 	}
 
-	public String getRegdate() {
-		return regdate;
+	public String getRegDate() {
+		return regDate;
 	}
 
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 
 	@Override
 	public String toString() {
 		return "GuestBookVo [no=" + no + ", name=" + name + ", password=" + password + ", content=" + content
-				+ ", regdate=" + regdate + "]";
+				+ ", regdate=" + regDate + "]";
 	}
 
 }

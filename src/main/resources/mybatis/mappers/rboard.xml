@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rboard">
+	<resultMap id="resultMapRboardVo" type="RboardVo">
+		<result column="no" property="no" />
+		<result column="user_no" property="userNo" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="hit" property="hit" />
+		<result column="reg_date" property="regDate" />
+		<result column="group_no" property="groupNo" />
+		<result column="order_no" property="orderNo" />
+		<result column="depth" property="depth" />
+	</resultMap>
+
+	<!-- 리스트 -->
+	<select id="rboardList" parameterType="String"
+		resultMap="resultMapRboardVo">
+		<![CDATA[
+					select r.no,
+ 			       r.user_no,
+    			   r.title,
+    			   r.hit,
+    			   r.reg_date,
+    		       u.name,
+     			   r.group_no,
+     		 	   r.order_no,
+     			   r.depth
+			from rboard r , users u
+			where r.user_no = u.no
+			order by group_no desc,order_no asc, r.no asc
+		]]>
+	</select>
+	
+	<insert id="rboardwrite" parameterType="RboardVo">
+			<![CDATA[
+				insert into rboard
+				values(seq_rboard_no.nextval,
+					   #{userNo},
+					   #{title},
+					   #{content},
+					   0,
+					   sysdate,
+					   seq_Rboard_group_no.nextval,
+					   1,
+					   0
+					   )
+			]]>
+	</insert>
+	
+	<!-- 게시물읽기 -->
+	<select id="rboardRead" parameterType="int"
+		resultMap="resultMapRboardVo">
+		<![CDATA[
+		select r.no ,
+    				   r.user_no,
+     				   r.title ,
+     				   r.hit ,
+    				   r.reg_date ,
+    				   r.content ,
+    				   u.name ,
+   		     		   r.group_no,
+    				   r.order_no,
+    				   r.depth
+				from rboard r , users u
+				where r.user_no = u.no
+				and r.no = #{no}
+				order by group_no desc,order_no asc
+		]]>
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="rboardHit" parameterType="int">
+		<![CDATA[
+			update rboard
+			set hit = hit + 1
+			where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="rboardDelete" parameterType="int">
+		<![CDATA[
+			delete from rboard
+			where no = #{no}
+		]]>
+	</delete>
+	
+	<select id="rboardModifyFrom" parameterType="int"
+		resultMap="resultMapRboardVo">
+			<![CDATA[
+				select order_no,
+      				   depth ,
+      				   no
+				from rboard
+				where group_no = #{no}
+			]]>
+	</select>
+	
+	<update id="rboardModify" parameterType="RboardVo">
+			<![CDATA[
+				update rboard
+				set title = #{title},
+    				content = #{content}
+				where no = #{no}
+			]]>
+	</update>
+	
+	<select id="rboardcommentForm" parameterType="int"
+		resultMap="resultMapRboardVo">
+			<![CDATA[
+				select order_no,
+      				   depth ,
+      				   no
+				from rboard
+				where group_no = #{no}
+			]]>
+	</select>
+	
+	<insert id="rboardcomment" parameterType="RboardVo">
+			<![CDATA[
+				insert into rboard
+				values(seq_rboard_no.nextval,
+				#{userNo},
+				#{title},
+				#{content},
+				0,
+				sysdate,
+				#{groupNo},
+				#{orderNo},
+				#{depth}
+				)
+			]]>
+	</insert>
+	
+	<update id="updateOrderNo" parameterType="RboardVo">
+		<![CDATA[
+				update rboard
+				set order_no = #{orderNo}
+				where no= #{no}
+		]]>
+	</update>
+
+</mapper>
